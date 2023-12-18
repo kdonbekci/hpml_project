@@ -20,15 +20,27 @@ class M5(nn.Module):
         self.fc1 = nn.Linear(2 * n_channel, n_channel)
         self.fc2 = nn.Linear(n_channel, 512)
         self.l = nn.Sequential(
-            nn.Linear(512, 512),
+            nn.Linear(512, 2048),
             nn.ReLU(),
-            nn.Linear(512, 512),
+            nn.Linear(2048, 2048),
             nn.ReLU(),
-            nn.Linear(512, 512),
+            nn.Linear(2048, 2048),
             nn.ReLU(),
-            nn.Linear(512, 512),
+            nn.Linear(2048, 2048),
             nn.ReLU(),
-            nn.Linear(512, 512),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 2048),
+            nn.ReLU(),
+            nn.Linear(2048, 512),
             nn.ReLU(),
         )
         self.fc3 = nn.Linear(512, n_output)
@@ -52,6 +64,8 @@ class M5(nn.Module):
         x = F.relu(x)
         x = self.fc2(x)
         x = F.relu(x)
+        x = self.l(x)
+        x = self.l(x)
         x = self.l(x)
         x = self.fc3(x)
         return F.log_softmax(x, dim=2)

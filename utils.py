@@ -40,6 +40,25 @@ def border_msg(msg):
     return result
 
 
+def time_me_seconds(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print()
+        start_time = time.perf_counter()
+        message = f"Beginning {func.__name__}"
+        log(border_msg(message))
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        time_took = end_time - start_time
+
+        message = f"{func.__name__} took {time_took:.2f} seconds"
+        log(border_msg(message))
+        print()
+        return result
+
+    return wrapper
+
+
 def time_me(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -49,7 +68,9 @@ def time_me(func):
         log(border_msg(message))
         result = func(*args, **kwargs)
         end_time = time.perf_counter()
-        message = f"{func.__name__} took {(end_time - start_time)/60:.2f} minutes"
+        time_took = end_time - start_time
+
+        message = f"{func.__name__} took {time_took/60:.2f} minutes"
         log(border_msg(message))
         print()
         return result
