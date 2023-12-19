@@ -6,8 +6,6 @@ import random
 import math
 from functools import wraps
 import time
-from pathlib import Path
-import pyinstrument
 
 SAMPLE_RATE = 16_000
 
